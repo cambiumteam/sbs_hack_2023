@@ -3,7 +3,7 @@
 import rasterio as rio
 import functools
 import asyncio
-from stratipy import utils
+from . import utils
 # from stratipy.constants import WSG84_CRS
 WGS84_CRS = 'epsg:4326'
 

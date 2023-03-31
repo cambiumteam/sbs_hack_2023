@@ -36,7 +36,6 @@ function App() {
             latitude: 49.2125578,
             zoom: 14
           }}
-          // mapStyle="https://api.maptiler.com/maps/streets/style.json?key=F2KXZf4yfHG3HgH1Ia3k"
           mapStyle='mapbox://styles/mapbox/satellite-streets-v11'
           transformRequest={transformRequest}
           style={{width: "300px", height: "300px"}}

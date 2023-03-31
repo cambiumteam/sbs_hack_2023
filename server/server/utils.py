@@ -8,6 +8,7 @@ import rasterio.warp as rio_warp
 from rasterio.io import MemoryFile
 import rasterio as rio
 import shapely
+import shapely.ops
 import pyproj
 import functools
 from contextlib import ExitStack

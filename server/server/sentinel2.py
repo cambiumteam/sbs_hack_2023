@@ -1,7 +1,7 @@
 # from https://gitlab.com/our-sci/software/stratipy/
 
-from stratipy import utils
-from stratipy import fetch
+from . import utils
+from . import fetch
 import numpy as np
 import rasterio as rio
 from tqdm.auto import tqdm
@@ -14,6 +14,8 @@ from typing import Optional, Union, Callable, Tuple, List, Dict
 from typing_extensions import Literal
 from pystac_client import Client
 import warnings
+
+import json
 
 DateStringRange = Union[str, Tuple[str], Tuple[str, str], List[str]]
 BBox = Union[Tuple[float, float, float, float], List[float]]
@@ -259,10 +261,17 @@ async def get_ndvi_summary_by_bbox_async(
     if len(errors) > 0:
         warnings.warn(f"Encountered errors: {errors}")
 
+
+    # # ==========================================================================================================================================================================
+    # import ipdb; ipdb.set_trace()
+    # json.dump(rasters, './rasters.json')
+
+    
     # 1. groupby scene id
     # 2. summarize ndvi foreach scene id
     # 3. merge summaries
     tile_keys_by_scene = group_dict_by_scene(rasters)
+    # print(tile_keys_by_scene.values())
     ndvi_summaries = [
         (
             summarize_ndvi(
