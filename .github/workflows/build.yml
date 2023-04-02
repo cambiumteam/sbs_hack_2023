@@ -40,7 +40,7 @@ jobs:
         name: Tag and publish versioned image.
         if: github.ref_type == 'tag'
         run: |
-          docker tag ${{ env.IMAGE_NAME }}:dev ${{ env.IMAGE_NAME }}:latest
-          docker tag ${{ env.IMAGE_NAME }}:dev ${{ env.IMAGE_NAME }}:${GITHUB_REF:10}
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}:${GITHUB_REF:10}
           docker push ${{ env.IMAGE_NAME }}:${GITHUB_REF:10}
           docker push ${{ env.IMAGE_NAME }}:latest
