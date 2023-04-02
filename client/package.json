@@ -12,6 +12,7 @@
     "mapbox-gl": "npm:empty-npm-package@1.0.0",
     "maplibre-gl": "^2.4.0",
     "maplibregl-mapbox-request-transformer": "^0.0.2",
+    "ol": "^7.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.0.21"

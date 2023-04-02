@@ -1,7 +1,22 @@
 import React, { useState } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
-import Map from 'react-map-gl';
+import Map, { Source, Layer } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
+import OlMap from './components/OlMap/Map';
+
+import MapDemo from './MapDemo';
+
+
+const RASTER_SOURCE_OPTIONS = {
+  // "type": "raster",
+  // "tiles": [
+  //   "https://someurl.com/512/{z}/{x}/{y}",
+  // ],
+  // "tileSize": 512
+  type: 'raster',
+  url: 'https://web2.co2.storage/ipfs/QmPEc9bjbhHJ1keQao7zLRjkQ2Su2wvm2FnDg6r9U4g5fA/outputs/ndvi-summary.tif',
+};
+
 
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -30,7 +45,9 @@ function App() {
   return (
     <ChakraProvider>
       <div className="App">
-        <Map mapLib={maplibregl} 
+        {/* <OlMap/> */}
+        <MapDemo />
+        {/* <Map mapLib={maplibregl} 
           initialViewState={{
             longitude: 16.62662018,
             latitude: 49.2125578,
@@ -38,10 +55,20 @@ function App() {
           }}
           mapStyle='mapbox://styles/mapbox/satellite-streets-v11'
           transformRequest={transformRequest}
-          style={{width: "300px", height: "300px"}}
-        />
+          style={{width: "500px", height: "500px"}}
+        >
+          <Source 
+            id="source_id" 
+            type="image" 
+            url="https://web2.co2.storage/ipfs/QmPEc9bjbhHJ1keQao7zLRjkQ2Su2wvm2FnDg6r9U4g5fA/outputs/ndvi-summary.tif"
+            // tileJsonSource={RASTER_SOURCE_OPTIONS} 
+            
+          />
+          <Layer type="raster" id="layer_id" source="source_id" />
+  
+        </Map> */}
 
-        <div>
+        {/* <div>
           <a href="https://vitejs.dev" target="_blank"  rel="noreferrer" >
             <img src={viteLogo} className="logo" alt="Vite logo" />
           </a>
@@ -60,7 +87,7 @@ function App() {
         </div>
         <p className="read-the-docs">
           Click on the Vite and React logos to learn more
-        </p>
+        </p> */}
       </div>
     </ChakraProvider>
   )
