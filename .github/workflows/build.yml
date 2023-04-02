@@ -1,0 +1,46 @@
+name: Build image
+
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '*'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Get branch name.
+        run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - name: Get image name.
+        run: echo "IMAGE_NAME=ghcr.io/cambiumteam/sentinel-processing" >> $GITHUB_ENV
+      -
+        name: Login to GitHub Docker Registry
+        uses: docker/login-action@v2
+        with:
+          # Change these values to use a different Docker registry.
+          # Include credentials as secrets in the GitHub repository settings eg: secrets.REGISTRY_PASS
+          # And change the base of the image name according to the registry (see above)
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: Build base image.
+        run: docker build server -f server/Dockerfile -t ${{ env.IMAGE_NAME }}
+      -
+        name: Push image if on the main branch.
+        if: ${{ env.BRANCH == 'main' }}
+        run: |
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME}}:dev
+          docker push ${{ env.IMAGE_NAME }}:dev
+      -
+        name: Tag and publish versioned image.
+        if: github.ref_type == 'tag'
+        run: |
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}:${GITHUB_REF:10}
+          docker push ${{ env.IMAGE_NAME }}:${GITHUB_REF:10}
+          docker push ${{ env.IMAGE_NAME }}:latest
