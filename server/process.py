@@ -6,9 +6,10 @@ import os
 from geojson import FeatureCollection
 import rasterio
 from shapely.geometry import GeometryCollection, shape
+import numpy as np
 
 from server import utils
-from server.sentinel2 import get_ndvi_summary_by_bbox_async
+from server.sentinel2 import get_ndvi_summary_by_bbox_async, fetch_async, get_inputs, search_catalog
 
 WGS84_CRS = 'epsg:4326'
 
@@ -34,6 +35,36 @@ async def ndvi_summary(start, end, bbox, output):
                            compress='lzw'
                            ) as dst:
             dst.write(raster.astype(rasterio.float64), 1)
+
+
+async def rgb(start, end, bbox, output):
+    items = get_inputs(
+        search_catalog(
+            bbox,
+            dates=f"{start}/{end}",
+            query={"platform": {"eq": "sentinel-2a"}}
+        ),
+        bands=["B04", "B03", "B02"]
+    )
+    rasters, errors = await fetch_async(items, bbox=bbox, bbox_crs=WGS84_CRS)
+    rgb = ["B04", "B03", "B02"]
+    for raster_name, raster in rasters.items():
+        first = raster["B04"]
+        with rasterio.Env():
+            with rasterio.open(os.path.join(output, f"{raster_name}-rgb.tif"), 'w',
+                               driver="GTiff",
+                               height=first[0].shape[0],
+                               width=first[0].shape[1],
+                               count=3,
+                               dtype=rasterio.uint8,
+                               transform=first[1],
+                               crs=first[2],
+                               compress='lzw'
+                               ) as dst:
+                for id, layer in enumerate(rgb, start=1):
+                    data = raster[layer][0]
+                    norm = (data * (255 / np.max(data))).astype(np.uint8)
+                    dst.write_band(id, norm)
 
 
 def parse_file(path):
@@ -63,6 +94,7 @@ async def process():
     parser.add_argument("-e", "--end", required=True)
     parser.add_argument("-i", "--input", default="/inputs")
     parser.add_argument("-o", "--output", default="/outputs")
+    parser.add_argument("-p", "--process", default="ndvi-summary")
     args = parser.parse_args()
 
     # Collect geometries from geojson files in input directory.
@@ -83,7 +115,11 @@ async def process():
     bbox_padded = utils.get_bbox(boundary, padding=1e-3)
 
     # Process.
-    await ndvi_summary(args.start, args.end, bbox_padded, args.output)
+    match args.process:
+        case "ndvi-summary":
+            await ndvi_summary(args.start, args.end, bbox_padded, args.output)
+        case "rgb":
+            await rgb(args.start, args.end, bbox_padded, args.output)
 
 
 async def main():

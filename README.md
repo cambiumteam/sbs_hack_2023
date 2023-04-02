@@ -22,6 +22,7 @@ The docker image contains a file `process.py` which handles processing of Sentin
 following parameters:
 - `-s`, `--start`: Start date.
 - `-e`, `--end`: End date.
+- `p`, `--process`: Process type: `ndvi-summary`, `rgb`. Defaults to `ndvi-summary`.
 
 Configure input and output directories. A docker volume can be mounted if not running in Bacalhau:
 - `-i`, `--input`: Input directory. Directory with geojson files, or a single input file. Defaults to `/inputs`.
