@@ -6,5 +6,8 @@ import eslint from 'vite-plugin-eslint';
 export default ({ mode }) => {
   return defineConfig({
     plugins: [react(), eslint()],
+    define: {
+      global: {},
+    }
 })
 }

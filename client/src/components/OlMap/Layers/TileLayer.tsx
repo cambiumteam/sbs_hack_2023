@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import MapContext from "../MapContext";
 import OLTileLayer from "ol/layer/Tile";
-const TileLayer = ({ source, zIndex = 0 }: { source: any, zIndex: any }) => {
+const TileLayer = ({ source, zIndex = 0 }: { source: any, zIndex: number }) => {
   const { map } = useContext(MapContext); 
   useEffect(() => {
     if (!map) return;

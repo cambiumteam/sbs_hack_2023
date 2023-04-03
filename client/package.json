@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@co2-storage/js-api": "^1.2.3",
+    "axios": "^1.3.4",
     "mapbox-gl": "npm:empty-npm-package@1.0.0",
     "maplibre-gl": "^2.4.0",
     "maplibregl-mapbox-request-transformer": "^0.0.2",
