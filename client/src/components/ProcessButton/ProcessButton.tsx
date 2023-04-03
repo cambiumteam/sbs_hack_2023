@@ -60,6 +60,8 @@ const ProcessButton = (props: any) => {
       {jobResult?.State?.State === "Completed" && (
         <a
           href={`https://web2.co2.storage/ipfs/${jobResult.State.Executions[0].PublishedResults.CID}`}
+          target="_blank"
+          rel="noreferrer"
         >
           {jobResult.State.Executions[0].PublishedResults.CID}
         </a>

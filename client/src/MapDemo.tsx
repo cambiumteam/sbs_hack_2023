@@ -82,12 +82,12 @@ const MapDemo = (props: any) => {
   useEffect(() => {
     const source: any = vector({ features: [], url: props.featureCollectionUrl })
     setTestOlSource(source);
-    console.log('use effect is working', props.featureCollectionUrl);
+    // console.log('use effect is working', props.featureCollectionUrl);
     source.on('change', () => { 
       // window.olmap.getView().fit(source.getExtent());
       const fitOptions = {
         size: map.getSize(),
-        padding: [20, 20, 20, 20],
+        padding: [50, 50, 50, 50],
         maxZoom: 20,
       };
       map.getView().fit(source.getExtent(), fitOptions);

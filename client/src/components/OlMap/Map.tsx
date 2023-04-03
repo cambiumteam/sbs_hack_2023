@@ -18,7 +18,7 @@ const Map = ({ children, zoom, center, setMapObj }: Props) => {
   const mapRef = useRef<HTMLDivElement>();
   const [map, setMap] = useState<OlMap>();
   window.olmap = map;
-  console.log(window.olmap)
+  // console.log(window.olmap)
   // on component mount
   useEffect(() => {
     const options = {
