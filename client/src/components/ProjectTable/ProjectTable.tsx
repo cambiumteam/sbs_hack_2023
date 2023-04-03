@@ -21,7 +21,7 @@ const ProjectTable = (props: any) => {
       "sandbox",
       null,
       null,
-      "Verra Project"
+      "Verra Project: 953"
     );
     setAssets(result.assets);
     console.log(result);

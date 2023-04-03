@@ -79,9 +79,6 @@ function App() {
   // console.log(process.env)
   const [fcUrl, setFcUrl] = useState('');
 
-  const handleTestFeaturesUrl = () => {
-    setFcUrl('https://web2.co2.storage/ipfs/QmVLNxPAMkCw3MDGzDPkffeJpKqHmsnQ5VLMhrSKfNhJMU/');
-  }
   return (
     // <ChakraProvider>
       <div className="App">
@@ -89,7 +86,6 @@ function App() {
         {/* <OlMap/> */}
         {/* <MyMap features={features} /> */}
         <ProjectTable setFcUrl={setFcUrl} />
-        <button onClick={handleTestFeaturesUrl}>test features url</button>
         {/* <MapDemo features={features} /> */}
         <MapDemo featureCollectionUrl={fcUrl} />
         <ProcessButton featureCollectionUrl={fcUrl} />
