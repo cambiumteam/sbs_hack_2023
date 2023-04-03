@@ -8,6 +8,7 @@ import MapDemo from "./MapDemo";
 import MyMap from "./components/MyMap/MyMap";
 import FeaturesForm from "./components/FeaturesForm/FeaturesForm";
 import ProjectTable from "./components/ProjectTable/ProjectTable";
+import ProcessButton from "./components/ProcessButton/ProcessButton";
 
 const RASTER_SOURCE_OPTIONS = {
   // "type": "raster",
@@ -84,13 +85,14 @@ function App() {
   return (
     // <ChakraProvider>
       <div className="App">
-        <FeaturesForm setFeatures={setFeatures} />
+        {/* <FeaturesForm setFeatures={setFeatures} /> */}
         {/* <OlMap/> */}
         {/* <MyMap features={features} /> */}
         <ProjectTable setFcUrl={setFcUrl} />
         <button onClick={handleTestFeaturesUrl}>test features url</button>
         {/* <MapDemo features={features} /> */}
         <MapDemo featureCollectionUrl={fcUrl} />
+        <ProcessButton featureCollectionUrl={fcUrl} />
         {/* <Map mapLib={maplibregl} 
           initialViewState={{
             longitude: 16.62662018,

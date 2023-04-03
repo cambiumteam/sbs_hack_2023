@@ -151,7 +151,7 @@ const MapDemo = (props: any) => {
           <FullScreenControl />
         </Controls>
       </Map>
-      <div>
+      {/* <div>
         <input
           type="checkbox"
           checked={showLayer1}
@@ -166,7 +166,7 @@ const MapDemo = (props: any) => {
           onChange={(event) => setShowLayer2(event.target.checked)}
         />{" "}
         Wyandotte County
-      </div>
+      </div> */}
     </div>
   );
 };
